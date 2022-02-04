@@ -6,11 +6,19 @@ import pysam
 #%%
 
 def countCs_from_BAM(bam_input):
+    """
+    Counts p-m5C sites in BAM file. Adjustes for forward (C) and reverse (G) reads.
+
+    Args:
+        bam_input: Name of input bam file
+    Return:
+        Dictionary containing C counts for files.
+    """
     #print(bam_input)
     C_count_dict = {'0':0, '1':0, '2-4':0, '5-9':0, '10-19': 0, '20+': 0}
     C_count_list = []
     bamfile = pysam.AlignmentFile(bam_input,"rb", check_sq=False)
-    sample_name = os.path.basename(bam_input).split("meRanGh_genomeMapMerged_sorted_MT.bam")[0]
+    sample_name = os.path.basename(bam_input).split("meRanGh_genomeMapMerged_sorted.bam")[0]
 
     # check each read for C content, write to new file if passed filter
     # Write reads with 20+Cs to new file

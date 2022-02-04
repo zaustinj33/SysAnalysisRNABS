@@ -25,35 +25,38 @@ preDMS_all <- read.csv("allm5C_libraries_filteredDepth.csv", comment.char = '',h
 # import reference
 edbx <- EnsDb.Mmusculus.v79
 prep_annotations <- function (preDMS_file){
+  "
+  \code: Annotates and assignes transcript location data to every site. Location information is
+  based on a binned average of transcript length.
+
+  @param preDMS_file: m5C counts matrix of all sites in study
+  @return anno: Annotated m5C counts matrix
+  "
   # read in Input files
-  name <- "all_merged"
   overlap <- preDMS_file
   overlap_genome <- data.frame(chrom=overlap$chrom, position=overlap$refPos, group=overlap$group)
   #annotation
 
-  dat1 = overlap_genome
+  dat1 <- overlap_genome
   dat2 <- read.delim("mm10_anno_79_genes.txt")
-  
-  final_peak_diff_list = seq(1, dim(dat1)[1])
-  common_peaks = list()
-  tmp = c(); j=1
+  common_peaks <- list()
+  tmp <- NULL; j<-1
   
   ## calculate set diff
   for(ipeak in 1:dim(dat2)[1]){
     if(dim(dat1)[1]>1){
-      indx = which(dat1$chrom %in% dat2$chrom[ipeak] & (dat1$position >= dat2$start[ipeak])& (dat1$position <= dat2$end[ipeak])) 
+      indx <- which(dat1$chrom %in% dat2$chrom[ipeak] & (dat1$position >= dat2$start[ipeak])& (dat1$position <= dat2$end[ipeak]))
       if(length(indx)>0){
-        common_peaks [[j]] = cbind.data.frame(dat1[indx,],dat2[ipeak,])
-        j = j+1
-        dat1 = dat1[ -indx,]
-        rownames(dat1) = NULL
+        common_peaks [[j]] <- cbind.data.frame(dat1[indx,],dat2[ipeak,])
+        j <- j+1
+        dat1 <- dat1[ -indx,]
+        rownames(dat1) <- NULL
       }
     }
   }
   tmp[4] <- NULL
-  tmp = do.call('rbind', common_peaks)
-  
-  
+  tmp <- do.call('rbind', common_peaks)
+
   #create columns for bin-mapping 
   #length of transcript region: (stop-start), 
   tmp$length <- tmp$end - tmp$start

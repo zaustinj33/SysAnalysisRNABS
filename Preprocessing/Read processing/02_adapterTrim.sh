@@ -6,13 +6,11 @@ mkdir -p $2/raw_data/$1
 mkdir -p $2/mapped_files/$1/WithOverlap
 mkdir -p $2/mapped_files/$1/NoOverlap
 
-pushd $2/Code/$1/TecPap
 RAW1=$(find $2 -name $1_1.fq.gz)
 RAW2=$(find $2 -name $1_2.fq.gz)
 UMI=$(find $2 -name $1_umi.fq.gz)
 
-# Quality analysis breakdown for RNA-BS reads, outputs reads failed at each step to seperate files for downstream analysis #
-
+# Quality analysis breakdown for RNA-BS reads, outputs reads failed at each step to seperate files for downstream analysis
 
 cd $2/raw_data/$1
 

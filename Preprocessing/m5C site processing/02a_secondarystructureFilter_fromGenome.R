@@ -23,10 +23,19 @@ dir.exists(save_dir)
 load(paste0(save_dir,"/../Struc_mm10.rda"))
 
 ## --- read in raw data files --- ##
-list_of_anno_files <-c('SRR8170379')#, 'SRR8170378','MF_rep2') #c('G1', 'G2', 'G3', 'G4', 'MF_rep1', 'MF_rep2',
-                       #'pMF_rep1', 'pMF_rep2', 'SRR8170377', 'SRR8170378', 'SRR8170379', 'SRR8170380')
+list_of_anno_files <-c('G1', 'G2', 'G3', 'G4', 'MF_rep1', 'MF_rep2',
+                       'pMF_rep1', 'pMF_rep2', 'SRR8170377', 'SRR8170378', 'SRR8170379', 'SRR8170380')
 
 get_2ndfilter_individualFiles <- function(test_m5C) {
+  "
+  \code: Imports meRanCall files from plot_signalNoise_filter.py and applies a filter based on ViennaRNA
+  secondary structure prediction software. A list from github.com/ZW-xjtlu is used for compairson.
+  Writes file without return
+
+  @param test_m5C: meRanCall file filtered by signal/noise ratio
+  @return None
+  "
+
   # Import, format, merge dataset to mm10 reference
   name <- test_m5C
   rBS_df_OG <- read.csv(paste0(save_dir, "/", test_m5C,'_Genome10xCall_signalFilter.txt'), sep = "\t")

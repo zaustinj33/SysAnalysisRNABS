@@ -4,17 +4,25 @@ import glob, re, sys
 
 #%%
 
+# C-cutoffs to be used
 Ccutoff_list = {1:0, 2:0, 3:0, 4:0, 5:0, 8:0, 15:0}
 
-# Define functions
-"""Count occurances of C's in bam file, remove them, write clean bam file to new file. """
-def count_C(samfile):
-    name = re.sub("_sorted.bam",'',samfile)
+def count_C(bamfile_name):
+    """
+    Count occurances of C's in bam file, removes them, write clean bam files in parallel.
+
+    Args:
+        bamfile_name: Name of input file
+    Return:
+        Writes BAM files with reads removed
+        Dictionary of removed reads among each cutoff
+    """
+    name = re.sub("_sorted.bam",'',bamfile_name)
     #name = re.sub("_Map_sorted.bam",'',samfile)
     #name = re.sub("^subsample_",'',name)
-    sys.stdout.write("processing:\t" + samfile)
+    sys.stdout.write("processing:\t" + bamfile_name)
     removed_read_count = 0
-    bamfile = pysam.AlignmentFile(samfile,"rb", check_sq=False, threads=4)
+    bamfile = pysam.AlignmentFile(bamfile_name,"rb", check_sq=False, threads=4)
 
     # Open cutoff files for writing
     for k in Ccutoff_list.keys():

@@ -6,6 +6,14 @@ import pysam
 #%%
 
 def countCs_from_BAM(bam_input):
+    """
+    Counts p-m5C sites in BAM file as present or not. Adjustes for forward (C) and reverse (G) reads.
+
+    Args:
+        bam_input: Name of input bam file
+    Return:
+        Dictionary containing binary C counts for files.
+    """
     #print(bam_input)
     C_count_dict = {'no C':0,'with C':0}
     C_count_list = []
