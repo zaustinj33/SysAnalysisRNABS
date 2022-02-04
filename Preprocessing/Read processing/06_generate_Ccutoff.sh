@@ -3,4 +3,4 @@
 module reset
 module load Pysam
 
-python readWrite_20C_cutoff.py
+python 06b_readWrite_C_cutoff_merged

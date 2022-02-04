@@ -6,7 +6,10 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 #%%
-headers = ['#SeqID', 'refPos', 'strand', 'Base', 'cov', 'C_count','methRate' ]
+"""
+Accumulates 1) unique genes 2) unique sites counts for all samples. Plots the output.
+"""
+headers = ['#SeqID', 'refPos', 'strand', 'Base', 'cov', 'C_count','methRate']
 methRate_counts = {}
 methRate_counts_filtered = {}
 gene_counts = {}

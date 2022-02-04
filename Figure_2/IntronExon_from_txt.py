@@ -7,6 +7,13 @@ import os, glob
 import numpy as np
 
 #%%
+"""
+Mapping annotation distribution from RSeQC output files
+Args:
+    *_DistributionSummary.txt: output file of RSeQC distribution command
+Return:
+    Formatted dataframe ready for easy plotting
+"""
 df_list = []
 name_list = []
 for file in glob.glob("**/*_DistributionSummary.txt", recursive=True):  # remove '**/' if files are local to cwd

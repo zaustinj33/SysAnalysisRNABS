@@ -11,6 +11,14 @@ import seaborn as sns
 # methods
 # Read C_counts from fasta reference
 def countChrs_from_file(input_idxstats):
+    """
+    Calculates the % of reads mapped to the mitochondria.
+
+    Args:
+        SAMtools idxstats of meRanGh files.
+    Return:
+        Raw counts and percentage of reads mapped to the mitochondria.
+    """
     sample_dict = {}
     length_list = {}
     mapped_read_list = {}
@@ -131,28 +139,3 @@ sns.barplot(x='sample', y=1, data=norm_df, hue='map_approach', ax=ax_norm)
 plt.xticks(rotation=90)
 plt.show()
 plt.savefig('rawcounts_all_perc_MTmapped.png', bbox_inches='tight', dpi=400, transparent=True)
-
-#%%
-
-# plot % MT reads removed by 3C vs nonMT
-filtered_df = pd.DataFrame({'MT-A': [65877/66190, 873975/2534667, 108605920/109014578],
-                        'MT-B': [6020/6178, 85527/130510, 15973062/16272387],
-                        'MT-C': [4317/4395, 64035/77333, 12318348/12421643],
-                        'MT-D': [2502/2691, 35939/73132, 7296956/7561826]}).T.stack().reset_index()
-#%%
-filtered_df['chrom'] = np.where(filtered_df['level_1'] == 0, "ERCC",
-                                np.where(filtered_df['level_1'] == 1, "MT", "Autosome"))
-filtered_df = filtered_df.sort_values('chrom')
-#%%
-p = sns.barplot(x='level_0', y=0, data=filtered_df, hue='chrom',edgecolor="black", linewidth=2,
-                palette=['blue', 'green', 'red'])
-sns.despine()
-sns.set(rc={'figure.figsize':(5,4)})
-sns.set_style("ticks")
-plt.xticks(rotation=90)
-plt.ylim(0,1)
-p.set(yticks=np.arange(0, 1.01, 0.25))
-plt.legend(loc='upper left', bbox_to_anchor=(1.05, 1))
-
-plt.savefig('rawcounts_all_perc_MTvnonMT_Ccutoff.png', bbox_inches='tight', dpi=400, transparent=True)
-plt.show()

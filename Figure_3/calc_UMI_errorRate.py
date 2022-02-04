@@ -4,6 +4,14 @@ from collections import Counter
 # %%
 # Create C_counts from sam file
 def countCs_from_SAM(sam_file):
+    """
+    Records the p-m5C coverage and position-specific conversion rate of a SAM file.
+
+    Args:
+        sam_file: A small SAM file containing ERCC-mapped reads only
+    Return:
+        Two dictionaries of nucleotide positions, one recording C-counts, the other C position coverage
+    """
     read_dump = []
     test = sam_file
     UG_dict_coverage = {}
@@ -85,27 +93,8 @@ def create_counter_dict():
         count_dict[i] = 0
     return count_dict
 
-""" ## Not working
-def subset_bam(test):
-    with open(test, 'r') as read_sam_file, \
-            open(os.getcwd() + "\\" + test + "_UMIgroups_allC.txt", "r") as read_UMIgroupFile, \
-            open(os.getcwd() + "\\" + test + "_concordantCs.sam", "a") as write_C_file:
-        write_C_file.truncate(0)
-        C_file_writer = csv.writer(write_C_file, delimiter='\t', lineterminator='\n')
-
-        # read in UMI group lists
-        big_list = list(csv.reader(read_UMIgroupFile))
-        UMI_list = [val for sublist in big_list for val in sublist]
-
-        # 3) subset bam_ERCC file by concordant UMI groups
-        for line in csv.reader(read_sam_file, delimiter='\t'):
-            if len(line) == 20:  # check line has UMI group tag
-                if str(line[18].strip('UG:i:')) in UMI_list:
-                    C_file_writer.writerow(line)
-
-"""
 # %%
-"""
+
 # record_dict = {UG_group : {1 : 1_counters, 2 : 2_counters, 3 : 3_counters....150: 150_counters}}
 test_counts, test_coverage = countCs_from_SAM('test_data/G4_2D_meRanGh_genomeMap_dedupGroup.bam_ERCC.sam')
 
@@ -132,4 +121,4 @@ import matplotlib.pyplot as plt
 
 sns.stripplot(data=rate_df, y=0)
 plt.show()
-"""
+

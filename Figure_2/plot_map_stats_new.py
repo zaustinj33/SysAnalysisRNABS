@@ -7,6 +7,10 @@ import seaborn as sns
 
 # %%
 # methods
+"""
+Code to plot mapping efficiencies from SAMtools output files.
+"""
+
 # Read C_counts from fasta reference
 def countReads_from_flagstat(input_flagstat):
     with open(input_flagstat, "r") as input:
@@ -22,6 +26,15 @@ def countReads_from_fqCount(input_fqCount):
     return fqCount
 
 # %%
+
+"""
+Code will search for files with prefix "file" and match statistics files 
+Args:
+    meRan*count.txt: SAMtools flagstat output
+    fq.gz_count.txt: A single line text file only containing read count (zcat $file | wc -l)
+Return:
+    Dataframe of all samples in glob list ready for easy plotting
+"""
 
 plot_dict = {}
 norm_compare = {}

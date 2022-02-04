@@ -5,6 +5,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 #%%
+"""
+Plot the output of Preprocessing/Read Processing/record_Cs_perRead.py
+Python file can be modified to record different bins, files, etc
+"""
 file = glob.glob("**/ERCC_C_Count_hist_nonDedup.json", recursive=True)[0]
 with open(file, 'r') as data:
     C_counts = json.loads(data.read())

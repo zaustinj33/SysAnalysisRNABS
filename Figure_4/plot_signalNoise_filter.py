@@ -6,6 +6,13 @@ import matplotlib.pyplot as plt
 #%%
 pd.options.mode.chained_assignment = None  # default='warn'
 def filter_m5C(input_file):
+    """
+    Filters meRanCall files to ensure proper signal/noise calculations.
+    Args:
+        input_file: meRanCall file.
+    Return:
+        Standard filter of meRanCall file.
+    """
     df = pd.read_csv(input_file, sep='\t', low_memory=False)  # file
     #1) basic filter (remove (df['cov'] >= 20) & for MT libraries
     df_filter = df[( (df['methRate'] >= 0.1) & (df['C_count'] >= 3) & (df['cov'] >= 20) &
@@ -25,7 +32,10 @@ def filter_m5C(input_file):
 sample_list = ['G1','G2', 'G3', 'G4','MF_rep1', 'MF_rep2','pMF_rep1', 'pMF_rep2', 'SRR8170377', 'SRR8170378', 'SRR8170379', 'SRR8170380']
 
 #%%
-
+"""
+Calculates the Signal/Noise ratio of sites based on 1) Raw meRanCall output and 2) C-cutoff and standard filter output
+Finds FDR files to remove sites which did not pass meRanCall's FDR adjusted p-values
+"""
 SN_dict = {}
 drop_list = {}
 for name in sample_list:

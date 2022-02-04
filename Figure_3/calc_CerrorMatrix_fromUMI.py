@@ -11,6 +11,14 @@ import numpy as np
 
 # Create C_counts from sam file
 def UMI_matrix_from_SAM(sam_file):
+    """
+    Creation of a large matrix matrix of UMI positions containing a p-m5C site within a small SAM file.
+    Each row represents a unique UMI group containing information on the proportion of each nucleotide.
+    Args:
+        sam_file: A small SAM file containing ERCC-mapped reads only.
+    Return:
+        A multi-index dataframe containing nucleotide proportion information for each UMI group.
+    """
     read_dump = []
     test = sam_file
     UG_name_list = []

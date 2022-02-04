@@ -4,9 +4,12 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
+from scipy.spatial.transform import rotation
 
 #%%
-from scipy.spatial.transform import rotation
+"""
+Plots output of 08_determine_Ccutoff.py to determine Gini coefficient after C_cutoff calling
+"""
 
 with open(os.getcwd()+'\\Gall_Ginivalues.json', 'r') as data:
     gini_counts = json.loads(data.read())

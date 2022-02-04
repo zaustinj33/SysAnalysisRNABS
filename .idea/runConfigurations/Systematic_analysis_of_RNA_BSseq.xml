@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Systematic analysis of RNA BSseq" type="docker-deploy" factoryName="docker-image" server-name="Systematic analysis of RNA BSseq">
+    <deployment type="docker-image">
+      <settings>
+        <option name="containerName" value="" />
+      </settings>
+    </deployment>
+    <method v="2" />
+  </configuration>
+</component>

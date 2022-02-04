@@ -5,6 +5,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #%%
+"""
+Plots binned 1) coverage 2) C-counts for all unfiltered meRanCall files
+"""
 headers = ['#SeqID','refPos', 'refStrand', 'refBase', 'cov', 'C_count', 'methRate', 'mut_count',
            'mutRate', 'CalledBase', 'CB_count',	'state', '95_CI_lower', '95_CI_upper', 'p-value_mState',
            'p-value_mRate', 'score', 'seqContext', 'geneName', 'candidateName', 'gene']

@@ -7,7 +7,15 @@ import numpy as np
 import pickle
 
 #%%
-#from Chapter_3.calc_UMI_errorRate import subset_bam  ## not working
+"""
+Function to accumulate Discordance rates from all relevant SAM files.
+Requires import functions from calc_UMI_errorRate.py.
+
+Args:
+    *_meRanGh_genomeMapTrim_dedupGroup.bam_ERCC.sam: SAM file only containing ERCC reads.
+Return:
+    Dataframe containing discordance and concordance rates of each SAM file. 
+"""
 
 counts_list = {}
 coverage_list = {}

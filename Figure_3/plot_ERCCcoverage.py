@@ -3,7 +3,6 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
-#from calc_UMI_errorRate import *
 
 #%%
 
@@ -18,6 +17,11 @@ def read_ERCCmix():
 #%%
 
 def create_ERCC_cov():
+    """
+    Function to find SAMtools idxstats files of samples and record read coverage of ERCCs
+    Return:
+        ERCC counts for all relevant files with _mapStats
+    """
     ERCC_list = []
     name_list = []
     df_headers = ['ERCC ID', 'length', 'coverage', 'unmapped_coverage']

@@ -7,6 +7,12 @@ import pandas as pd
 
 
 #%%
+"""
+Plot the output of Preprocessing/Read Processing/record_Cs_perRead_binary.py.
+Plots the ratio of completely converted reads vs incompletely converted reads
+
+Python file can be modified to record different bins, files, etc
+"""
 
 ## Change input to file of interest (ERCC_Cs, noDedup_ERCCs, etc)
 with open((os.getcwd()+'\\C_Count_hist_binary_noDedup.json'), 'r') as data:
