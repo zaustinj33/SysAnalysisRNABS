@@ -75,7 +75,7 @@ overlap_files <- list.files(pattern = "G_allUnionDepth.csv", full.names = T)
 #View(read.csv(overlap_files[[1]]))
 
 conditions <- c("G1|G2", "G1|G3", "G1|G4", "G2|G3", "G2|G4", "G3|G4")
-preDMS_all <- read.csv("allm5C_libraries.csv", comment.char = '',header = T)
+preDMS_all <- read.csv("allm5C_libraries_filteredDepth.csv", comment.char = '',header = T)
 preDMS_all[,c(4:10,14:19,23:28,32:37)] <- NULL
 preDMS_all[,4] <- NULL
 ## Comparing replicates
@@ -90,17 +90,23 @@ replicate_dotplot <- function (condition) {
                              (overlap_df[,2] >=1) & (overlap_df[,5] >=1),]
   overlap_df <- overlap_df[complete.cases(overlap_df),]
   write.csv(overlap_df, paste0("Dotplot_", name, "_compare.csv"))
+}
+
+overlap_files <- list.files(pattern = "Dotplot_.*_table.csv", full.names = T)
+
+plot_DMS_overlap <- function(overlap_df, condition) {
   # only grab methylLevel columns
+  overlap_df <- read.csv(overlap_df)
   methylDF <- data.frame(
-                         ML_1=as.numeric(overlap_df[[3]]),
-                         ML_2=as.numeric(overlap_df[[6]])
+                         ML_1=as.numeric(overlap_df$ML_1),
+                         ML_2=as.numeric(overlap_df$ML_2)
   )
   methylDF <- methylDF[complete.cases(methylDF),]
   print(nrow(methylDF))
   #methylDF$density <- get_density(methylDF$ML_1, methylDF$ML_2, n = nrow(methylDF))
 
   p<-ggplot(methylDF) +
-    geom_point(aes(x = ML_1, y = ML_2),size = 1) + theme_bw() +
+    geom_point(aes(x = ML_1, y = ML_2, shape = sig),size = 1) + theme_bw() +
     geom_abline(slope = 1, linetype = 'longdash', size = 1.5) +
     scale_color_gradientn(colors = c('blue','yellow','#DC0000FF'), values = c(0,0.5,1)) +
     theme(legend.title = element_blank(), legend.position = 'none', axis.text = element_text(size = 18),
@@ -117,6 +123,8 @@ replicate_dotplot <- function (condition) {
   #ggsave(path = save_dir,filename = paste0("/Dotplot_", name, "_compare.png")
    # ,plot = p,height = 5,width = 5,dpi = 500)
 }
+plot_DMS_overlap(overlap_files[[1]], "G1|G2")
+
 lapply(conditions, replicate_dotplot)
 
 sample <- "G1"

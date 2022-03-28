@@ -10,7 +10,7 @@ def calcML(df):
     return ML_df
 
 #samples = ['G1' 'G2', 'G3', 'G4','MF_rep1','MF_rep2','SRR8170377', 'SRR8170378', 'SRR8170379','SRR8170380']
-conditions = ["G","MF","pMF","SRR"]
+conditions = ["G","SRR"]  # "MF","pMF",
 #%%
 #import all sites
 total_file = "allm5C_libraries_filteredDepthAnno.csv"
@@ -20,11 +20,8 @@ overlapped_site_ML = {}
 exclusive_site_ML = {}
 for set in conditions:
     print(set)
-    """if set == "G":
-        ext = "_allUnionDepth.csv"
-    else:"""
 
-    ext = "_allOverlapDepth.csv"
+    ext = "_allOverlapRepDepth.csv"
     #ext = "_allUnion.csv"
     for file in glob.glob("**/"+set+ext, recursive=True):
         print(file)
@@ -51,7 +48,7 @@ exclusive_df = pd.DataFrame(exclusive_site_ML)
 flierprops = dict(marker='o', markerfacecolor='black', markersize=3,
                   linestyle='none', markeredgecolor='black')
 
-sns.boxplot(data=overlapped_df, linewidth=2,flierprops=flierprops)
+sns.boxplot(data=overlapped_df, linewidth=2,flierprops=flierprops, palette = ['blue', 'red'])
 #sns.scatterplot(data=overlapped_df, color='black')
 plt.ylim(-0.05,1.1)
 plt.savefig("overlapped_ML_boxplot.png",bbox_inches='tight', dpi=400, transparent=True)
@@ -64,6 +61,6 @@ plt.show()
 #%%
 
 from scipy.stats import ranksums
-ranksums(overlapped_df['G'], overlapped_df['MF'])
+ranksums(overlapped_df['G'], overlapped_df['SRR'])
 
 
